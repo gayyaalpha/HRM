@@ -1,4 +1,4 @@
-/* 
+/*
  * CustomButton (Component)
  * Description : Button used throughout the application
  * Props :
@@ -16,20 +16,20 @@ import {
     StyleSheet,
     TouchableOpacity,
     TouchableNativeFeedback,
-    Platform, 
+    Platform,
     Dimensions
 } from 'react-native';
 
-import Styles from 'react-native-json-forms/src/constants/styles';
+import Styles from '../constants/styles';
 
 // Window width and height used for styling purposes
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 /************************************************
- * 
+ *
  * COMPONENT
- * 
+ *
  ************************************************/
 const CustomButton = props => {
 
@@ -69,11 +69,11 @@ const CustomButton = props => {
         <View style={typeof props.shadow !== 'undefined' && props.shadow === true ? Styles.shadow : {}}>
             <View style={{backgroundColor: props.backgroundColor, ...styles.buttonContainer, ...typeof props.shadow !== 'undefined' && props.shadow === true && Platform.OS === 'android' ? {...Styles.shadow, borderRadius:15} : {}}}>
                 <ButtonComponent activeOpacity={0.6} onPress={props.onPress}>
-                    <View 
+                    <View
                         style={{
-                            ...styles.button, 
-                            backgroundColor: props.backgroundColor, 
-                            width: typeof props.width !== 'undefined' ? props.width : windowWidth * 0.3, 
+                            ...styles.button,
+                            backgroundColor: props.backgroundColor,
+                            width: typeof props.width !== 'undefined' ? props.width : windowWidth * 0.3,
                             height: typeof props.height !== 'undefined' ? props.height : windowHeight * 0.06,
                             borderRadius: typeof props.borderRadius !== 'undefined' ? props.borderRadius : 15,
                         }}

@@ -3,6 +3,7 @@ import { View, Dimensions, StyleSheet, Alert } from 'react-native';
 
 
 import TextElement from './components/elements/TextElement';
+import CustomButton from './components/components/CustomButton';
 
 // Window width and height used for styling purposes
 const windowWidth = Dimensions.get('window').width;
@@ -27,10 +28,10 @@ const Form = props => {
         var temp = data;
         var element = props.json.pages[pageIndex].elements[index];
         temp[index] = {type: element.type, name: element.name, value: value, required: typeof element.required === 'undefined' ? false : element.required === true ? true : false};
-        
+
         if (typeof element.id !== 'undefined')
             temp[index]['id'] = element.id;
-        
+
         setData(temp);
 
         alldefined = 0;
@@ -64,17 +65,17 @@ const Form = props => {
 
     props.json.pages.map((page, pageIndex) => {
         page.elements.map((e, index) => {
-        
-            
+
+
             if (e.type === 'text') {
-                coreElementFlag = true; 
+                coreElementFlag = true;
                 form.push(
                     <TextElement
                         key={index}
                         onChange={onChange}
                         index={index}
                         pageIndex={pageIndex}
-                        title={e.name} 
+                        title={e.name}
                     />
                 );
             }
