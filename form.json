@@ -1,0 +1,40 @@
+{"result": [
+
+    {
+        "type": "text",
+        "name": "question1",
+        "title": "Title",
+        "isRequired": true,
+        "inputType": null
+
+    },
+
+    {
+
+        "type": "text",
+
+        "name": "question2",
+
+        "title": "Description",
+
+        "isRequired": false,
+
+        "inputType": null
+
+    },
+
+    {
+
+        "type": "text",
+
+        "name": "question3",
+
+        "title": "Issued Date",
+
+        "isRequired": true,
+
+        "inputType": "date"
+
+    }
+]
+}

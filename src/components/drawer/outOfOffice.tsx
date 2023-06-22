@@ -1,13 +1,19 @@
-import {Text, View} from 'react-native'
+import {ScrollView, Text, View} from 'react-native';
 
-const OutOfOffice=()=>{
-    return(
-        <View>
-            <Text>Out Of Office Screen</Text>
-        </View>
-    )
-   
+// Import JSON file with the form
+import data from './../../../form.json';
+import Form from '../../Form';
 
-}
+const OutOfOffice = () => {
 
-export default OutOfOffice
+    const onSubmit = () => {
+        console.log("data");
+    };
+  return (
+    <ScrollView>
+      <Form json={data}  onSubmit={onSubmit} />
+    </ScrollView>
+  );
+};
+
+export default OutOfOffice;
