@@ -188,6 +188,7 @@ const UserLogin = ({navigation}: any) => {
                       onChangeText={onChange}
                       value={value}
                       style={styles.inputSt}
+                      keyboardType="email-address"
                     />
                   )}
                   name="email"
@@ -290,9 +291,11 @@ const styles = StyleSheet.create({
   },
   inputSt: {
     width: screen.width * 0.8,
+    height: 44,
     borderWidth: 2,
     borderColor: '#fff',
     marginBottom: 10,
+    color: '#fff',
   },
 
   square: {

@@ -1,13 +1,9 @@
 import * as React from 'react';
-import {useEffect} from 'react';
 
-import {Button, Text, TouchableOpacity, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UserLogin from '../userLogin';
-import CompanyLogin from '../companyLogin';
-import Home from '../home';
+import OutOfOffice from "../drawer/outOfOffice";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +17,7 @@ const AuthStack = () => {
       />
       <Stack.Screen
         name="Company Login"
-        component={CompanyLogin}
+        component={OutOfOffice}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

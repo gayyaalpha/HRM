@@ -237,6 +237,7 @@ const styles = StyleSheet.create({
   },
   inputSt: {
     width: screen.width * 0.8,
+    height: 44,
     // margin: 400,
     borderWidth: 2,
     borderColor: '#fff',
