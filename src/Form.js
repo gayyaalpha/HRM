@@ -3,6 +3,8 @@ import { View, Dimensions, StyleSheet, Alert } from 'react-native';
 
 
 import TextElement from './components/elements/TextElement';
+import RadioElement from './components/elements/RadioElement';
+import DropdownElement from './components/elements/DropdownElement';
 import CustomButton from './components/components/CustomButton';
 
 // Window width and height used for styling purposes
@@ -75,10 +77,39 @@ const Form = props => {
                         onChange={onChange}
                         index={index}
                         pageIndex={pageIndex}
-                        title={e.name}
+                        title={e.title}
+                        required={e.isRequired}
                     />
                 );
             }
+            else if (e.type === 'radiogroup') {
+                coreElementFlag = true; 
+                form.push(
+                    <RadioElement
+                        key={index}
+                        onChange={onChange}
+                        index={index}
+                        pageIndex={pageIndex}
+                        title={e.title}
+                        items={e.choices} 
+                    />
+                );
+            }
+            else if (e.type === 'dropdown') {
+                coreElementFlag = true; 
+                form.push(
+                    <DropdownElement
+                        key={index}
+                        onChange={onChange}
+                        index={index}
+                        pageIndex={pageIndex}
+                        title={e.title}
+                        items={e.choices} 
+                    />
+                );
+            }
+
+
 
         });
     });
@@ -87,16 +118,14 @@ const Form = props => {
         <CustomButton
             title={typeof props.submitText !== 'undefined' ? typeof props.submitText === 'string' ? props.submitText : 'Submit' : 'Submit'}
             onPress={onSubmit}
-            backgroundColor={Colors.primary}
-            textColor={'white'}
+            backgroundColor={'#00A3FF'}
+            textColor={'black'}
             width={'100%'}
-            height={windowHeight * 0.1}
-            borderRadius={(windowWidth+windowHeight)*0.01}
-            shadow={true}
-            bold={true}
+            height={55}
+            borderRadius={(windowWidth+windowHeight)*0.001}
         />
     );
-//<Button title='Submit' onPress={onSubmit}/>;
+    //<Button title='Submit' onPress={onSubmit}/>;
     if(props.showSubmitButton === false && coreElementFlag === false) submitButton = <View/>;
 
     return (

@@ -1,29 +1,43 @@
 {
-    "logoPosition": "right",
-    "pages": [
+  "title": "Certifications",
+
+  "logoPosition": "right",
+
+  "pages": [
+    {
+      "name": "page1",
+
+      "elements": [
         {
-            "name": "page1",
-            "elements": [
-                {
-                    "type": "text",
-                    "name": "question1",
-                    "title": "name",
-                    "isRequired": true
-                },
-                {
-                    "type": "text",
-                    "name": "thedate",
-                    "defaultValueExpression": "currentDate()",
-                    "isRequired": true,
-                    "inputType": "date"
-                },
-                {
-                    "type": "text",
-                    "name": "question3",
-                    "title": "sdef",
-                    "isRequired": true
-                }
-            ]
+          "type": "text",
+
+          "name": "question1",
+
+          "title": "Certification Name",
+
+          "isRequired": true
+        },
+
+        {
+          "type": "text",
+
+          "name": "question2",
+
+          "title": "Issued Date",
+
+          "isRequired": true,
+
+          "inputType": "date"
+        },
+
+        {
+          "type": "text",
+
+          "name": "question3",
+
+          "title": "Description"
         }
-    ]
+      ]
+    }
+  ]
 }

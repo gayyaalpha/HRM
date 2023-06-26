@@ -1,19 +1,29 @@
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 
 // Import JSON file with the form
 import data from './../../../form.json';
 import Form from '../../Form';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const OutOfOffice = () => {
-
-    const onSubmit = () => {
-        console.log("data");
-    };
+  const onSubmit = () => {
+    console.log('data');
+  };
   return (
-    <ScrollView>
-      <Form json={data}  onSubmit={onSubmit} />
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <Form json={data} onSubmit={onSubmit} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default OutOfOffice;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#08254D',
+   
+    flex: 1,
+  },
+});
