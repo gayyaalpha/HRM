@@ -13,64 +13,42 @@ import List from '../children/list';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import FontAIcon from 'react-native-vector-icons/FontAwesome';
-import {
-  useGetEducationInfoQuery,
-  useGetQualificationInfoQuery,
-} from '../../app/api/profileApiSlice';
 import {useDispatch, useSelector} from 'react-redux';
-import {CertificationInfo, EducationInfo} from '../../app/types/profileInfo';
-import {
-  selectCertificationInfo,
-  selectEducationInfo,
-  setCertificationInfo,
-  setEducationInfo,
-} from '../../app/slice/profileSlice';
+import {useGetExperienceInfoQuery} from '../../app/api/profileApiSlice';
 import useDidUpdate from '../../app/hooks/useDidUpdate';
+import {selectWorkInfo, setWorkInfo} from '../../app/slice/profileSlice';
+import {WorkInfo} from '../../app/types/profileInfo';
 import moment from 'moment';
 
-const Qualifications = ({navigation}: any) => {
+const WorkHistory = ({navigation}: any) => {
   const dispatch = useDispatch();
-  const certificationInfo: CertificationInfo = useSelector(
-    selectCertificationInfo,
-  );
-  const educationInfo: EducationInfo = useSelector(selectEducationInfo);
+
+  const experienceInfo: WorkInfo = useSelector(selectWorkInfo);
+
   const {
-    data: certificationInfoData,
+    data: experienceInfoData,
     error,
     isLoading,
     isSuccess,
-  } = useGetQualificationInfoQuery('');
-
-  const {
-    data: educationInfoData,
-    error: error2,
-    isLoading: isLoading2,
-    isSuccess: isSuccess2,
-  } = useGetEducationInfoQuery('');
-
+  } = useGetExperienceInfoQuery('');
   console.log('isLoading ' + isLoading);
 
-  // console.log(certificationInfoData);
+  console.log(experienceInfoData);
 
   useEffect(() => {
     if (error) console.log(error);
   }, [error]);
 
   useDidUpdate(() => {
-    if (isSuccess && isSuccess2) {
+    if (isSuccess) {
       console.log('set tenent data');
       setData();
     }
-  }, [isSuccess && isSuccess2]);
+  }, [isSuccess]);
 
   const setData = () => {
-    dispatch(setCertificationInfo(certificationInfoData?.result));
-    dispatch(setEducationInfo(educationInfoData?.result));
+    dispatch(setWorkInfo(experienceInfoData?.result));
   };
-
-  console.log(certificationInfo);
-
-  console.log(educationInfo);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -84,7 +62,7 @@ const Qualifications = ({navigation}: any) => {
         </View>
         <View
           style={styles.headerTextSt}>
-          <Text style={styles.headerText}>QUALIFICATIONS</Text>
+          <Text style={styles.headerText}>Work History</Text>
         </View>
         <View style={{flex: 1}}></View>
       </View>
@@ -92,45 +70,31 @@ const Qualifications = ({navigation}: any) => {
         <View
           style={{
             flex: 1,
-            marginTop: 20,
-            padding: 15,
+            justifyContent: 'flex-start',
+            height: screenHeight * 1.1,
             width: screenWidth,
+            marginTop: 20,
+            padding: 20,
           }}>
-          <Text style={{color: '#218FDC', fontSize: 14, marginBottom: 35}}>
-            Licenses & Certifications
+            <Text style={{color: '#218FDC', fontSize: 14, marginBottom: 35}}>
+            EXPERIENCE
           </Text>
-          {Object.values(certificationInfo).map((ele: any) => (
+          {experienceInfo && Object.values(experienceInfo).map((ele: any) => (
             <View
               style={{
                 borderBottomColor: '#F2F2F2',
                 borderBottomWidth: 2,
-                padding: 20,
+                padding: 10,
               }}
-              key={ele?.certificationsId}>
+              key={ele?.experienceId}>
               <Text style={{color: 'white', fontSize: 18, marginBottom: 9}}>
-                {ele?.certificationName}{' '}
+                {ele?.title}
               </Text>
-              <Text style={{color: '#828282'}}>
-                Issued {moment(`${ele?.issuedDate}`).format('MMM YYYY')}{' '}
+              <Text style={{color: '#828282', fontSize: 15, marginBottom: 9}}>
+                {ele?.companyName}
               </Text>
-            </View>
-          ))}
-          <Text style={{color: '#218FDC', fontSize: 14, marginVertical: 35}}>
-            Education
-          </Text>
-          {Object.values(educationInfo).map((ele: any) => (
-            <View
-              style={{
-                borderBottomColor: '#F2F2F2',
-                borderBottomWidth: 2,
-                padding: 20,
-              }}
-              key={ele?.id}>
-              <Text style={{color: 'white', fontSize: 18, marginBottom: 9}}>
-                {ele?.school}{' '}
-              </Text>
-              <Text style={{color: '#828282'}}>
-                Issued {moment(`${ele?.startDate}`).format('MMM YYYY')}
+              <Text style={{color: '#828282', fontSize: 15}}>
+                 {moment(`${ele?.startDate}`).format('MMM YYYY')} - {moment(`${ele?.endDate}`).format('MMM YYYY')}
               </Text>
             </View>
           ))}
@@ -140,14 +104,13 @@ const Qualifications = ({navigation}: any) => {
   );
 };
 
-export default Qualifications;
+export default WorkHistory;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#08254D',
     justifyContent: 'center',
-    alignItems: 'flex-start',
-    flex: 1,
+    alignItems: 'center',
   },
   boxContainer: {
     flex: 1.5,

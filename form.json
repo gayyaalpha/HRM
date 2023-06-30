@@ -19,16 +19,33 @@
         },
 
         {
-          "type": "text",
-
+          "type": "datepicker",
+          "mode": "manual",
           "name": "question2",
-
           "title": "Issued Date",
-
           "isRequired": true,
-
           "inputType": "date"
         },
+        {
+          "type": "dropdown",
+          "name": "question6",
+          "title": "Civil Status",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "Item 1",
+            "text": "Single"
+           },
+           {
+            "value": "Item 2",
+            "text": "Married"
+           },
+           {
+            "value": "Item 3",
+            "text": "Others"
+           }
+          ]
+         },
 
         {
           "type": "text",

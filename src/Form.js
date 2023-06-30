@@ -6,6 +6,7 @@ import TextElement from './components/elements/TextElement';
 import RadioElement from './components/elements/RadioElement';
 import DropdownElement from './components/elements/DropdownElement';
 import CustomButton from './components/components/CustomButton';
+import DateTimePickerElement from "./components/elements/DateTimePickerElement";
 
 // Window width and height used for styling purposes
 const windowWidth = Dimensions.get('window').width;
@@ -92,6 +93,7 @@ const Form = props => {
                         pageIndex={pageIndex}
                         title={e.title}
                         items={e.choices} 
+                        required={e.isRequired}
                     />
                 );
             }
@@ -105,6 +107,22 @@ const Form = props => {
                         pageIndex={pageIndex}
                         title={e.title}
                         items={e.choices} 
+                        required={e.isRequired}
+                    />
+                );
+            }
+            else if (e.type === 'datepicker') {
+                if (e.mode === 'manual') coreElementFlag = true;
+                form.push(
+                    <DateTimePickerElement 
+                        key={index}
+                        onChange={onChange}
+                        index={index}
+                        pageIndex={pageIndex}
+                        title={e.title} 
+                        mode={'date'}
+                        type={e.mode}
+                        required={e.isRequired}
                     />
                 );
             }

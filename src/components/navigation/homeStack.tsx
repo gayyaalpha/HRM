@@ -9,7 +9,7 @@ import UserLogin from '../userLogin';
 import CompanyLogin from '../companyLogin';
 import Home from '../home';
 import Profile from '../drawer/profile';
-import PersonalInfo from '../modules/PersonalInfo';
+import PersonalInfo from '../profile_modules/PersonalInfo';
 import Settings from '../drawer/settings';
 
 const Stack = createNativeStackNavigator();

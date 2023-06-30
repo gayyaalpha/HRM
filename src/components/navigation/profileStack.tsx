@@ -9,20 +9,21 @@ import UserLogin from '../userLogin';
 import CompanyLogin from '../companyLogin';
 import Home from '../home';
 import Profile from '../drawer/profile';
-import PersonalInfo from '../modules/PersonalInfo';
+import PersonalInfo from '../profile_modules/PersonalInfo';
 import Settings from '../drawer/settings';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
-import ContactDetails from '../modules/ContactDetails';
-import JobDetails from '../modules/JobDetails';
-import Qualifications from '../modules/Qualifications';
-import BankDetails from '../modules/BankDetails';
-import WorkHistory from '../modules/WorkHistory';
-import ContactOffice from '../modules/ContactOffice';
-import ContactHome from '../modules/ContactHome';
-import DocumentLib from '../modules/DocumentLib';
-import BenefitDetails from '../modules/BenefitDetails';
-import Payslips from '../modules/Payslips';
-import Policies from '../modules/Policies';
+import ContactDetails from '../profile_modules/ContactDetails';
+import JobDetails from '../profile_modules/JobDetails';
+import Qualifications from '../profile_modules/Qualifications';
+import BankDetails from '../profile_modules/BankDetails';
+import WorkHistory from '../profile_modules/WorkHistory';
+import ContactOffice from '../profile_modules/ContactOffice';
+import ContactHome from '../profile_modules/ContactHome';
+import DocumentLib from '../profile_modules/DocumentLib';
+import BenefitDetails from '../profile_modules/BenefitDetails';
+import Payslips from '../profile_modules/Payslips';
+import Policies from '../profile_modules/Policies';
+import PersonalInfoForm from '../profile_modules/forms/PersonalInfoForm';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,7 @@ const ProfileStack = ({naviagation}: any) => {
       <Stack.Screen name="Benefit Details" component={BenefitDetails} />
       <Stack.Screen name="Payslips" component={Payslips} />
       <Stack.Screen name="Policies" component={Policies} />
+      <Stack.Screen name="Personal Info Form" component={PersonalInfoForm} />
     </Stack.Navigator>
   );
 };

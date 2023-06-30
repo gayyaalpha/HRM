@@ -13,27 +13,26 @@ import List from '../children/list';
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 import FontAIcon from 'react-native-vector-icons/FontAwesome';
-import {useDispatch, useSelector} from 'react-redux';
-import {useGetExperienceInfoQuery} from '../../app/api/profileApiSlice';
+import FontAIcon5 from 'react-native-vector-icons/FontAwesome5';
+import {useGetPersonalInfoQuery} from '../../app/api/profileApiSlice';
 import useDidUpdate from '../../app/hooks/useDidUpdate';
-import {selectWorkInfo, setWorkInfo} from '../../app/slice/profileSlice';
-import {WorkInfo} from '../../app/types/profileInfo';
-import moment from 'moment';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectProfileInfo, setProfileInfo} from '../../app/slice/profileSlice';
+import {ProfileInfo} from '../../app/types/profileInfo';
 
-const WorkHistory = ({navigation}: any) => {
+const PersonalInfo = ({navigation}: any) => {
   const dispatch = useDispatch();
-
-  const experienceInfo: WorkInfo = useSelector(selectWorkInfo);
+  const personalInfo: ProfileInfo = useSelector(selectProfileInfo);
 
   const {
-    data: experienceInfoData,
+    data: personalInfoData,
     error,
     isLoading,
     isSuccess,
-  } = useGetExperienceInfoQuery('');
+  } = useGetPersonalInfoQuery('');
   console.log('isLoading ' + isLoading);
 
-  console.log(experienceInfoData);
+  console.log(personalInfoData);
 
   useEffect(() => {
     if (error) console.log(error);
@@ -42,69 +41,73 @@ const WorkHistory = ({navigation}: any) => {
   useDidUpdate(() => {
     if (isSuccess) {
       console.log('set tenent data');
-      setData();
+      setPersonalData();
     }
   }, [isSuccess]);
 
-  const setData = () => {
-    dispatch(setWorkInfo(experienceInfoData?.result));
+  const setPersonalData = () => {
+    dispatch(setProfileInfo(personalInfoData?.result));
   };
+
+  console.log(personalInfo?.civilStatus);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.headerIcon}>
+        <View
+          style={styles.headerIcon}>
           <TouchableOpacity
-            style={{flex: 1, padding: 10}}
+            style={{padding:10}}
             onPress={() => navigation.navigate('profile')}>
             <FontAIcon name="chevron-left" size={20} color="white" />
           </TouchableOpacity>
         </View>
         <View
           style={styles.headerTextSt}>
-          <Text style={styles.headerText}>Work History</Text>
+          <Text style={styles.headerText}>PERSONAL INFORMATION</Text>
         </View>
-        <View style={{flex: 1}}></View>
+        <View
+          style={styles.headerIconEdit}>
+          <TouchableOpacity
+            style={{padding:10}}
+            onPress={() => navigation.navigate('Personal Info Form')}>
+            <FontAIcon5 name="pen" size={20} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
       <ScrollView>
         <View
           style={{
             flex: 1,
-            justifyContent: 'flex-start',
+            justifyContent: 'space-between',
             height: screenHeight * 1.1,
-            width: screenWidth,
+            width: screenWidth - 15,
             marginTop: 20,
-            padding: 20,
           }}>
-            <Text style={{color: '#218FDC', fontSize: 14, marginBottom: 35}}>
-            EXPERIENCE
-          </Text>
-          {Object.values(experienceInfo).map((ele: any) => (
-            <View
-              style={{
-                borderBottomColor: '#F2F2F2',
-                borderBottomWidth: 2,
-                padding: 10,
-              }}
-              key={ele?.experienceId}>
-              <Text style={{color: 'white', fontSize: 18, marginBottom: 9}}>
-                {ele?.title}
-              </Text>
-              <Text style={{color: '#828282', fontSize: 15, marginBottom: 9}}>
-                {ele?.companyName}
-              </Text>
-              <Text style={{color: '#828282', fontSize: 15}}>
-                 {moment(`${ele?.startDate}`).format('MMM YYYY')} - {moment(`${ele?.endDate}`).format('MMM YYYY')}
-              </Text>
-            </View>
-          ))}
+          <List
+            title={'Name With Initials'}
+            content={personalInfo?.nameWithInitial}
+          />
+          <List title={'Full Name'} content={personalInfo?.fullName} />
+          <List title={'Employee No'} content={personalInfo?.employeeNo} />
+          <List title={'EPF No'} content={personalInfo?.epfNo} />
+          <List title={'NIC No'} content={personalInfo?.nicNo} />
+          <List title={'Passport No'} content={personalInfo?.passportNo} />
+          <List
+            title={'Driving Licence No'}
+            content={personalInfo?.drivingLicenseNo}
+          />
+          <List title={'Civil Status'} content={personalInfo?.civilStatus} />
+          <List title={'Nationality'} content={personalInfo?.nationality} />
+          <List title={'Race'} content={personalInfo?.rase} />
+          <List title={'Gender'} content={personalInfo?.gender} />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default WorkHistory;
+export default PersonalInfo;
 
 const styles = StyleSheet.create({
   container: {
@@ -145,6 +148,11 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 100,
   },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
   header: {
     height: 50,
     width: screenWidth,
@@ -166,9 +174,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
   },
-  headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-  },
+  headerIconEdit:{
+    flex:1,
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+}
 });

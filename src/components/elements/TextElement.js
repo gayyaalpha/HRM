@@ -15,7 +15,7 @@ const windowHeight = Dimensions.get('window').height;
 // Text inserted by user built with react native TextInput component
 const TextElement = props => {
   // State that stores input text
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('asdadas');
 
   // On first render send default value in answer data in the form component
   useEffect(() => {
@@ -50,11 +50,11 @@ const TextElement = props => {
       </View>
       <TextInput
         style={styles.input}
-        placeholder={'Type anything...'}
         multiline={false} // Allows to wrap content in multiple lines
         onChangeText={inputHandler}
         value={value}
         maxLength={40}
+        defaultValue='1234ewre'
       />
       {false && (
         <View style={styles.errorView}>

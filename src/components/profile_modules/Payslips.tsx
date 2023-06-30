@@ -68,7 +68,7 @@ const Payslips = ({navigation}:any) => {
           marginTop: 20,
           padding: 10,
         }}>
-        {Object.values(payslipInfo).map((ele: any) => (
+        {payslipInfo && Object.values(payslipInfo).map((ele: any) => (
           <View  key={ele?.id} style={{borderBottomColor: '#F2F2F2', borderBottomWidth: 2}}>
             <TouchableOpacity
               style={{

@@ -1,37 +1,39 @@
 import {
   Dimensions,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useEffect} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {ScrollView} from 'react-native-gesture-handler';
-import List from '../children/list';
+import {useDispatch, useSelector} from 'react-redux';
+import {useGetPolicyInfoQuery} from '../../app/api/profileApiSlice';
+import useDidUpdate from '../../app/hooks/useDidUpdate';
+import {
+  selectDocumentInfo,
+  setDocumentInfo,
+} from '../../app/slice/profileSlice';
+import {DocumentInfo} from '../../app/types/profileInfo';
+import FontAIcon from 'react-native-vector-icons/FontAwesome';
+import moment from 'moment';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-import FontAIcon from 'react-native-vector-icons/FontAwesome';
-import {useGetPersonalInfoQuery} from '../../app/api/profileApiSlice';
-import useDidUpdate from '../../app/hooks/useDidUpdate';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectProfileInfo, setProfileInfo} from '../../app/slice/profileSlice';
-import {ProfileInfo} from '../../app/types/profileInfo';
 
-const PersonalInfo = ({navigation}: any) => {
+const DocumentLib = ({navigation}: any) => {
   const dispatch = useDispatch();
-  const personalInfo: ProfileInfo = useSelector(selectProfileInfo);
+
+  const documentInfo: DocumentInfo = useSelector(selectDocumentInfo);
 
   const {
-    data: personalInfoData,
+    data: documentInfoData,
     error,
     isLoading,
     isSuccess,
-  } = useGetPersonalInfoQuery('');
+  } = useGetPolicyInfoQuery('');
   console.log('isLoading ' + isLoading);
-
-  console.log(personalInfoData);
 
   useEffect(() => {
     if (error) console.log(error);
@@ -40,71 +42,80 @@ const PersonalInfo = ({navigation}: any) => {
   useDidUpdate(() => {
     if (isSuccess) {
       console.log('set tenent data');
-      setPersonalData();
+      setData();
     }
   }, [isSuccess]);
 
-  const setPersonalData = () => {
-    dispatch(setProfileInfo(personalInfoData?.result));
+  const setData = () => {
+    dispatch(setDocumentInfo(documentInfoData?.result));
   };
-
-  console.log(personalInfo?.civilStatus);
+  console.log(documentInfo);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <View
-          style={styles.headerIcon}>
+        <View style={styles.headerIcon}>
           <TouchableOpacity
-            style={{padding:10}}
+            style={{flex: 1, padding: 10}}
             onPress={() => navigation.navigate('profile')}>
             <FontAIcon name="chevron-left" size={20} color="white" />
           </TouchableOpacity>
         </View>
         <View
           style={styles.headerTextSt}>
-          <Text style={styles.headerText}>PERSONAL INFORMATION</Text>
+          <Text style={styles.headerText}>DOCUMENTS</Text>
         </View>
+        <View style={{flex: 1}}></View>
       </View>
       <ScrollView>
         <View
           style={{
             flex: 1,
-            justifyContent: 'space-between',
-            height: screenHeight * 1.1,
-            width: screenWidth - 15,
+            justifyContent: 'flex-start',
+            width: screenWidth,
             marginTop: 20,
+            padding: 20,
           }}>
-          <List
-            title={'Name With Initials'}
-            content={personalInfo?.nameWithInitial}
-          />
-          <List title={'Full Name'} content={personalInfo?.fullName} />
-          <List title={'Employee No'} content={personalInfo?.employeeNo} />
-          <List title={'EPF No'} content={personalInfo?.epfNo} />
-          <List title={'NIC No'} content={personalInfo?.nicNo} />
-          <List title={'Passport No'} content={personalInfo?.passportNo} />
-          <List
-            title={'Driving Licence No'}
-            content={personalInfo?.drivingLicenseNo}
-          />
-          <List title={'Civil Status'} content={personalInfo?.civilStatus} />
-          <List title={'Nationality'} content={personalInfo?.nationality} />
-          <List title={'Race'} content={personalInfo?.rase} />
-          <List title={'Gender'} content={personalInfo?.gender} />
+          <Text style={{color: '#218FDC', fontSize: 14, marginBottom: 35}}>
+            POLICIES
+          </Text>
+          {documentInfo && Object.values(documentInfo).map((ele: any) => (
+            <View key={ele?.id} style={{borderBottomColor: '#F2F2F2', borderBottomWidth: 2 ,marginVertical:15}}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  paddingBottom:10,
+                  alignContent:'center',
+                  alignItems:'center'
+                }}>
+                <View style={{flex: 12}}>
+                  <Text style={{color: 'white', fontSize: 18}}>
+                    {ele?.title}
+                  </Text>
+                  <Text style={{color: '#828282', fontSize: 15 }}>
+                    Issued {moment(`${ele?.issuedDate}`).format('MMM YYYY')}
+                  </Text>
+                </View>
+                <View style={{flex: 1}}>
+                  <FontAIcon name="chevron-right" size={20} color="white" />
+                </View>
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default PersonalInfo;
+export default DocumentLib;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#08254D',
     justifyContent: 'center',
     alignItems: 'center',
+    flex:1
   },
   boxContainer: {
     flex: 1.5,
@@ -139,11 +150,6 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 100,
   },
-  headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-  },
   header: {
     height: 50,
     width: screenWidth,
@@ -164,5 +170,10 @@ const styles = StyleSheet.create({
       alignContent: 'center',
       alignItems: 'center',
       justifyContent: 'center',
-  }
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
 });

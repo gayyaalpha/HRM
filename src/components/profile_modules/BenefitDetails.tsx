@@ -65,7 +65,7 @@ const BenefitDetails = ({navigation}:any) => {
         <Text style={{color: '#218FDC', fontSize: 14, marginBottom: 35}}>
           POLICIES
         </Text>
-        {Object.values(benefitInfo).map((ele: any) => (
+        {benefitInfo && Object.values(benefitInfo).map((ele: any) => (
           <View  key={ele?.id} style={{borderBottomColor: '#F2F2F2', borderBottomWidth: 2 ,marginVertical:15}}>
             <TouchableOpacity
               style={{

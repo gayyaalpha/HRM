@@ -37,21 +37,30 @@ export interface JobInfo {
   serviceType: string;
 }
 
-export interface CertificationInfo {
-  id: string;
-  certificationName: string;
-  certificationsId: string;
-  description: string;
-  issuedDate: string;
+export interface QualificationInfo {
+  certification: {
+    id: string;
+    certificationName: string;
+    certificationsId: string;
+    description: string;
+    issuedDate: string;
+  };
+  education: {
+    educationDescription: string;
+    endDate: string;
+    id: string;
+    school: string;
+    startDate: string;
+  };
+  language: {
+    competency: string;
+    fluency: string;
+    languageCode: string;
+    languageId: string;
+    name: string;
+  };
 }
 
-export interface EducationInfo {
-  educationDescription: string;
-  endDate: string;
-  id: string;
-  school: string;
-  startDate: string;
-}
 export interface BankInfo {
   accDetailsId: string;
   accountNumber: string;
@@ -82,7 +91,7 @@ export interface BenefitInfo {
 }
 
 export interface payslipInfo {
-  date:string;
+  date: string;
   description: string;
-  id : string;
+  id: string;
 }
