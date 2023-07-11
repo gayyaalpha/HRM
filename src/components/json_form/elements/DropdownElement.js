@@ -31,7 +31,7 @@ const DropdownElement = props => {
   console.log('isLoading ' + isLoading);
 
   useEffect(() => {
-    if (error) console.log(error);
+    if (error) console.log({error});
   }, [error]);
 
   console.log(dropdownData);
@@ -43,6 +43,10 @@ const DropdownElement = props => {
       setData();
     }
   }, [isSuccess]);
+
+  useDidUpdate(() => {
+    console.log({dropdownData});
+  }, [dropdownData]);
 
   const setData = () => {
     dispatch(setProductionLine(dropdownData?.result));
@@ -95,7 +99,7 @@ const DropdownElement = props => {
             style={{fontSize: 14, fontFamily: 'segoeui', color: '#707070'}}
             value={''}
           />
-          {dropdownData && Object.values(dropdownData?.result).map((item, index) => {
+          {dropdownData && (dropdownData?.result).map((item, index) => {
             return (
               <Picker.Item
                 style={{fontSize: 14, fontFamily: 'segoeui', color: '#fff'}}

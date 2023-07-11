@@ -64,8 +64,8 @@ const IssueInspection = ({navigation}: any) => {
       </View>
       <ScrollView>
         <View>
-          {allIssueList &&
-            Object.values(allIssueList).map((ele: any) => (
+          {IssueInfoData &&
+            Object.values(IssueInfoData?.result).map((ele: any) => (
               <View key={ele?.id}>
                 <CardIssue
                   id={ele.id}

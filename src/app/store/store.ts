@@ -27,7 +27,7 @@ const persistConfig = {
 export const store = configureStore({
     reducer: persistedReducer,
     middleware:(getDefaultMiddleware) =>
-    getDefaultMiddleware({serializableCheck: false,}).concat(apiSlice.middleware).concat(additionalMiddleware), // Disable serializable check for AsyncStorage compatibility
+    getDefaultMiddleware().concat(apiSlice.middleware).concat(additionalMiddleware), // Disable serializable check for AsyncStorage compatibility
     
     devTools: true
     

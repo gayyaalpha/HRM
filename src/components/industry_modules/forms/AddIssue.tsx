@@ -1,7 +1,7 @@
 import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useGetAddNewIssueFormQuery} from '../api/industryApiSlice';
+import {useGetAddNewIssueFormQuery, useIssueSubmitMutation} from '../api/industryApiSlice';
 import useDidUpdate from '../../../app/hooks/useDidUpdate';
 import {selectAddNewIssue, setAddNewIssue} from '../reducers/industrySlice';
 import {AddNewIssue} from '../types/issueInfo';
@@ -11,7 +11,7 @@ import data from '../../../../form.json';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../../children/header';
 import FontAIcon from 'react-native-vector-icons/FontAwesome';
-import { useIssueSubmitMutation } from '../api/SubmitApiSlice';
+
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -63,7 +63,22 @@ const AddIssue = ({navigation}: any) => {
       
     console.log( data);
     const convertedObject = Object.assign(
-      {},
+      {"user": {
+        "id": "1",
+        "userName": "string",
+        "email": "string",
+        "normalizedUserName": "string",
+        "emailConfirmed": true,
+        "passwordHash": "string",
+        "securityStamp": "string",
+        "concurrencyStamp": "string",
+        "phoneNumber": "string",
+        "phoneNumberConfirmed": true,
+        "twoFactorEnabled": true,
+        "lockoutEnd": "2023-07-11T04:55:54.549Z",
+        "lockoutEnabled": true,
+        "accessFailedCount": 0
+      },},
       ...data.map(({ name, value }:any) => ({ [name]: value }))
     );
     
