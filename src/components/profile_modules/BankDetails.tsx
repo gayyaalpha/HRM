@@ -18,6 +18,7 @@ import useDidUpdate from '../../app/hooks/useDidUpdate';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectBankInfo, setBankInfo} from '../../app/slice/profileSlice';
 import {BankInfo} from '../../app/types/profileInfo';
+import FontAIcon5 from 'react-native-vector-icons/FontAwesome5';
 
 const BankDetails = ({navigation}: any) => {
   const dispatch = useDispatch();
@@ -58,27 +59,38 @@ const BankDetails = ({navigation}: any) => {
             <FontAIcon name="chevron-left" size={20} color="white" />
           </TouchableOpacity>
         </View>
-        <View
-          style={styles.headerTextSt}>
+        <View style={styles.headerTextSt}>
           <Text style={styles.headerText}>BANK DETAILS</Text>
         </View>
-        <View style={{flex: 1}}></View>
-      </View>
-        <View
-          style={{
-            padding:15,
-            marginTop: 20,
-            borderBottomColor:'#F2F2F2',
-            borderBottomWidth:1,
-            width:screenWidth
-          }}>
-          <Text style={{color: '#218FDC', fontSize: 14,marginBottom:15}}>
-            ACCOUNT DETAILS
-          </Text>
-         <Text style={{color: 'white', fontSize: 18}}>{bankInfo?.accountNumber}</Text>
-         <Text style={{color: '#828282', fontSize: 15}}>{bankInfo?.bankName}</Text>
-         <Text style={{color: '#828282', fontSize: 15}}>{bankInfo?.branchName}</Text>
+        <View style={styles.headerIconEdit}>
+          <TouchableOpacity
+            style={{padding: 10}}
+            onPress={() => navigation.navigate('Bank Details Form')}>
+            <FontAIcon5 name="pen" size={20} color="white" />
+          </TouchableOpacity>
         </View>
+      </View>
+      <View
+        style={{
+          padding: 15,
+          marginTop: 20,
+          borderBottomColor: '#F2F2F2',
+          borderBottomWidth: 1,
+          width: screenWidth,
+        }}>
+        <Text style={{color: '#218FDC', fontSize: 14, marginBottom: 15}}>
+          ACCOUNT DETAILS
+        </Text>
+        <Text style={{color: 'white', fontSize: 18}}>
+          {bankInfo?.accountNumber}
+        </Text>
+        <Text style={{color: '#828282', fontSize: 15}}>
+          {bankInfo?.bankName}
+        </Text>
+        <Text style={{color: '#828282', fontSize: 15}}>
+          {bankInfo?.branchName}
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -89,8 +101,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#08254D',
     justifyContent: 'flex-start',
-    alignItems:'flex-start',
-    flex:1
+    alignItems: 'flex-start',
+    flex: 1,
   },
   boxContainer: {
     flex: 1.5,
@@ -134,21 +146,29 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     flexDirection: 'column',
   },
-  headerTextSt:{
-    flex:1,
+  headerTextSt: {
+    flex: 1,
     position: 'absolute',
   },
-  headerIcon:{
-      flex:1,
-      position: 'absolute',
-      alignSelf: 'flex-start',
-      alignContent: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
+  headerIcon: {
+    flex: 1,
+    position: 'absolute',
+    alignSelf: 'flex-start',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   headerText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
+  },
+  headerIconEdit: {
+    flex: 1,
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

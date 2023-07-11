@@ -15,6 +15,7 @@ import {useSelector} from 'react-redux';
 import {User} from './src/app/types/user';
 import {Tenant} from './src/app/types/tenant';
 import {selectBaseUrl, selectTenant} from './src/app/slice/tenantSlice';
+import IndustryStack from './src/components/navigation/industryStack';
 
 function App({navigation}: any) {
  
@@ -28,7 +29,9 @@ function App({navigation}: any) {
 
   return (
     <NavigationContainer>
-      {access_Token == null ? <AuthStack /> : <AppStack />}
+      {access_Token == null ? <AuthStack /> :<IndustryStack /> }
+      {/* <AppStack /> */}
+      {/* <IndustryStack /> */}
     </NavigationContainer>
   );
 }

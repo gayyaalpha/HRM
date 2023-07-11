@@ -30,6 +30,28 @@
           "type": "dropdown",
           "name": "question6",
           "title": "Civil Status",
+          "EndPoint": "/ProductionLine",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "Item 1",
+            "text": "Single"
+           },
+           {
+            "value": "Item 2",
+            "text": "Married"
+           },
+           {
+            "value": "Item 3",
+            "text": "Others"
+           }
+          ]
+         },
+         {
+          "type": "dropdown",
+          "name": "question6",
+          "title": "Category",
+          "EndPoint": "/Category",
           "isRequired": true,
           "choices": [
            {

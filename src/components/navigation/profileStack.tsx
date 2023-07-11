@@ -24,6 +24,10 @@ import BenefitDetails from '../profile_modules/BenefitDetails';
 import Payslips from '../profile_modules/Payslips';
 import Policies from '../profile_modules/Policies';
 import PersonalInfoForm from '../profile_modules/forms/PersonalInfoForm';
+import ContactInfoHomeForm from '../profile_modules/forms/ContactInfoHomeForm';
+import contactInfoOfficeForm from '../profile_modules/forms/ContactInfoOfficeForm';
+import JobDetailsForm from '../profile_modules/forms/JobDetailForm';
+import BankDetailsForm from '../profile_modules/forms/BankDetailsForm';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +50,10 @@ const ProfileStack = ({naviagation}: any) => {
       <Stack.Screen name="Payslips" component={Payslips} />
       <Stack.Screen name="Policies" component={Policies} />
       <Stack.Screen name="Personal Info Form" component={PersonalInfoForm} />
+      <Stack.Screen name="Contact Office Form" component={contactInfoOfficeForm} />
+      <Stack.Screen name="Contact Home Form" component={ContactInfoHomeForm} />
+      <Stack.Screen name="Job Details Form" component={JobDetailsForm} />
+      <Stack.Screen name="Bank Details Form" component={BankDetailsForm} />
     </Stack.Navigator>
   );
 };

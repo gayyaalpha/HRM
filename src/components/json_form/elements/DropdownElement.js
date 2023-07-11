@@ -9,10 +9,48 @@ const windowHeight = Dimensions.get('window').height;
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAIcon from 'react-native-vector-icons/FontAwesome5';
+import {useGetJsonUrlQuery} from '../api/jsonApiSlice';
+import useDidUpdate from '../../../app/hooks/useDidUpdate';
+import {setProductionLine, selectProductionLine} from '../reducers/jsonSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 // Dropdown element built from picker
 const DropdownElement = props => {
+  const dispatch = useDispatch();
+  const productionLine = useSelector(selectProductionLine);
+
+  const {
+    data: dropdownData,
+    error,
+    isLoading,
+    isSuccess,
+  } = useGetJsonUrlQuery(props.endPoint);
+
+  console.log(props.endPoint);
+
+  console.log('isLoading ' + isLoading);
+
+  useEffect(() => {
+    if (error) console.log(error);
+  }, [error]);
+
+  console.log(dropdownData);
+
+  useDidUpdate(() => {
+    if (isSuccess) {
+      console.log('set  data');
+
+      setData();
+    }
+  }, [isSuccess]);
+
+  const setData = () => {
+    dispatch(setProductionLine(dropdownData?.result));
+  };
+  // console.log(productionLine);
+
   // State to store selected option
+
   const [value, setValue] = useState('');
 
   // Sends default answer data
@@ -57,12 +95,12 @@ const DropdownElement = props => {
             style={{fontSize: 14, fontFamily: 'segoeui', color: '#707070'}}
             value={''}
           />
-          {props.items.map((item, index) => {
+          {dropdownData && Object.values(dropdownData?.result).map((item, index) => {
             return (
               <Picker.Item
                 style={{fontSize: 14, fontFamily: 'segoeui', color: '#fff'}}
-                label={item.text}
-                value={item.text}
+                label={item.name == null ? item.userName : item.name}
+                value={item.id}
                 key={index}
               />
             );

@@ -10,7 +10,7 @@ export interface ProfileInfo {
   nationality: string;
   nicNo: string;
   passportNo: string;
-  rase: string;
+  country: string;
 }
 
 export interface ContactInfo {
@@ -56,7 +56,7 @@ export interface QualificationInfo {
     competency: string;
     fluency: string;
     languageCode: string;
-    languageId: string;
+    id: string;
     name: string;
   };
 }

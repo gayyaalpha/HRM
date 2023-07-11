@@ -11,11 +11,12 @@ import React, {useEffect} from 'react';
 import FontAIcon from 'react-native-vector-icons/FontAwesome';
 import {usePersonalInfoEditQuery} from '../api/formApiSlice';
 import useDidUpdate from '../../../app/hooks/useDidUpdate';
-import Form from '../../../Form';
+import Form from '../../json_form/Form';
 import data from '../../../../form.json';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectProfileInfoForm, setProfileForm} from '../reducers/formSlice';
 import {ProfileInfoForm} from '../../../app/types/profileForm';
+import { convertJson } from '../../../app/utils/helpers';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -50,19 +51,6 @@ const PersonalInfoForm = ({navigation}: any) => {
   const onSubmit = () => {
     console.log('data');
   };
-
-  const convertJson = (itemName: string) => {
-    try {
-      return JSON.parse(itemName);
-    } catch (e) {
-      console.log(e);
-    }
-
-    console.log('Done.');
-  };
-
-
-
     // Check if the personalInfoForm data is available in the Redux store
     if (!personalInfoForm) {
       return null; // or render a loading spinner or placeholder content

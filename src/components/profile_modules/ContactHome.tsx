@@ -18,6 +18,7 @@ import useDidUpdate from '../../app/hooks/useDidUpdate';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectContactInfo, selectProfileInfo, setProfileInfo} from '../../app/slice/profileSlice';
 import {ContactInfo, ProfileInfo} from '../../app/types/profileInfo';
+import FontAIcon5 from 'react-native-vector-icons/FontAwesome5';
 
 const ContactHome = ({navigation}: any) => {
   const contactInfo: ContactInfo = useSelector(selectContactInfo);
@@ -37,13 +38,20 @@ const ContactHome = ({navigation}: any) => {
           style={styles.headerTextSt}>
           <Text style={styles.headerText}>HOME</Text>
         </View>
-        <View style={{flex: 1}}></View>
+        <View
+          style={styles.headerIconEdit}>
+          <TouchableOpacity
+            style={{padding:10}}
+            onPress={() => navigation.navigate('Contact Home Form')}>
+            <FontAIcon5 name="pen" size={20} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={{flex: 0.4 , width:screenWidth-15}}>
         <List title={'Phone'} content={contactInfo?.homePhoneNo} />
         <List title={'Fixed Line'} content={contactInfo?.homeFixedLine} />
-        <List title={'Mobile Number'} content={contactInfo.homeMobileNo} />
-        <List title={'Default Address'} content={contactInfo.homeDefaultAddress} />
+        <List title={'Mobile Number'} content={contactInfo?.homeMobileNo} />
+        <List title={'Default Address'} content={contactInfo?.homeDefaultAddress} />
       </View>
     </SafeAreaView>
   );
@@ -118,4 +126,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
+  headerIconEdit:{
+    flex:1,
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+}
 });

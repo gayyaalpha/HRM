@@ -54,7 +54,7 @@ const Qualifications = ({navigation}: any) => {
     dispatch(setQualificationInfo(qualificationInfoData?.result));
   };
 
-  console.log(qualificationInfo.certification);
+  console.log(qualificationInfo?.certification);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -79,9 +79,15 @@ const Qualifications = ({navigation}: any) => {
             padding: 15,
             width: screenWidth,
           }}>
-          <Text style={{color: '#218FDC', fontSize: 14, marginBottom: 35}}>
-            Licenses & Certifications
-          </Text>
+          <View style={styles.addNew}>
+            <Text style={{flex: 2, color: '#218FDC', fontSize: 14}}>
+              Licenses & Certifications
+            </Text>
+            <TouchableOpacity
+              style={{flex: 1, alignContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#115EA3', fontSize: 16}}>Add New</Text>
+            </TouchableOpacity>
+          </View>
           {qualificationInfo &&
             Object.values(qualificationInfo.certification).map((ele: any) => (
               <View
@@ -99,43 +105,59 @@ const Qualifications = ({navigation}: any) => {
                 </Text>
               </View>
             ))}
-          <Text style={{color: '#218FDC', fontSize: 14, marginVertical: 35}}>
-            Education
-          </Text>
-          {Object.values(qualificationInfo.education).map((ele: any) => (
-            <View
-              style={{
-                borderBottomColor: '#F2F2F2',
-                borderBottomWidth: 2,
-                padding: 20,
-              }}
-              key={ele?.id}>
-              <Text style={{color: 'white', fontSize: 18, marginBottom: 9}}>
-                {ele?.school}{' '}
-              </Text>
-              <Text style={{color: '#828282'}}>
-                Issued {moment(`${ele?.startDate}`).format('MMM YYYY')}
-              </Text>
-            </View>
-          ))}
-          <Text style={{color: '#218FDC', fontSize: 14, marginVertical: 35}}>
+          <View style={styles.addNewB}>
+            <Text style={{flex: 2, color: '#218FDC', fontSize: 14}}>
+              Education
+            </Text>
+            <TouchableOpacity
+              style={{flex: 1, alignContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#115EA3', fontSize: 16}}>Add New</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={{color: '#218FDC', fontSize: 14}}></Text>
+          {qualificationInfo &&
+            Object.values(qualificationInfo?.education).map((ele: any) => (
+              <View
+                style={{
+                  borderBottomColor: '#F2F2F2',
+                  borderBottomWidth: 2,
+                  padding: 20,
+                }}
+                key={ele?.id}>
+                <Text style={{color: 'white', fontSize: 18, marginBottom: 9}}>
+                  {ele?.school}{' '}
+                </Text>
+                <Text style={{color: '#828282'}}>
+                  Issued {moment(`${ele?.startDate}`).format('MMM YYYY')}
+                </Text>
+              </View>
+            ))}
+            <View style={styles.addNewB}>
+            <Text style={{flex: 2, color: '#218FDC', fontSize: 14}}>
             Languages
-          </Text>
-          {Object.values(qualificationInfo.language).map((ele: any) => (
-            <View
-              style={{
-                borderBottomColor: '#F2F2F2',
-                borderBottomWidth: 2,
-                padding: 20,
-              }}
-              key={ele?.id}>
-              <Text style={{color: 'white', fontSize: 18, marginBottom: 9}}>
-                {ele?.name}{' '}
-              </Text>
-              <Text style={{color: '#828282'}}>{ele?.competency}</Text>
-              <Text style={{color: '#828282'}}>{ele?.fluency}</Text>
-            </View>
-          ))}
+            </Text>
+            <TouchableOpacity
+              style={{flex: 1, alignContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#115EA3', fontSize: 16}}>Add New</Text>
+            </TouchableOpacity>
+          </View>
+          
+          {qualificationInfo &&
+            Object.values(qualificationInfo?.language).map((ele: any) => (
+              <View
+                style={{
+                  borderBottomColor: '#F2F2F2',
+                  borderBottomWidth: 2,
+                  padding: 20,
+                }}
+                key={ele?.id}>
+                <Text style={{color: 'white', fontSize: 18, marginBottom: 9}}>
+                  {ele?.name}{' '}
+                </Text>
+                <Text style={{color: '#828282'}}>{ele?.competency}</Text>
+                <Text style={{color: '#828282'}}>{ele?.fluency}</Text>
+              </View>
+            ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -151,38 +173,23 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 1,
   },
-  boxContainer: {
-    flex: 1.5,
+  addNew: {
+    flex: 1,
+    justifyContent: 'space-between',
+    width: screenWidth,
+    marginBottom: 35,
+    alignContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
   },
-  leaveBox: {
+  addNewB: {
     flex: 1,
-    backgroundColor: '#104682',
-    borderRadius: 8,
-    marginBottom: 15,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    width: screenWidth,
+    marginVertical: 35,
+    alignContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
-  },
-  titleText: {
-    color: 'white',
-    fontSize: 21,
-    alignContent: 'center',
-  },
-  leaveText: {
-    color: 'white',
-    fontSize: 12,
-    alignContent: 'center',
-  },
-  leaveNum: {
-    color: 'white',
-    fontSize: 36,
-    alignContent: 'center',
-  },
-  profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 100,
+    flexDirection: 'row',
   },
   header: {
     height: 50,

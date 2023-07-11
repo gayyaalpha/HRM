@@ -62,6 +62,18 @@ export const getFromLocalStorage = async (itemName: string) => {
 
   console.log('base url getlocal.');
 };
+
+
+export const convertJson = (itemName: string) => {
+  try {
+    return JSON.parse(itemName);
+  } catch (e) {
+    console.log(e);
+  }
+
+  console.log('Done.');
+};
+
 export interface UserResponse {
   appUser: User;
 

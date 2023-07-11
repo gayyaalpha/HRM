@@ -2,7 +2,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 
 // Import JSON file with the form
 import data from './../../../form.json';
-import Form from '../../Form';
+import Form from '../json_form/Form';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const OutOfOffice = () => {

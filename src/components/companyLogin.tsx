@@ -34,10 +34,6 @@ const CompanyLogin = ({navigation}: any) => {
   const [userHandle, {data: tenantData, isError, isLoading, isSuccess, error}] =
     useCompanySelectMutation();
   console.log(BASE_URL);
-
-  // const [companyName, setCompanyName] = useState('');
-  // const [companySubmit, setCompanySubmit] = useState('');
-
   const {
     control,
     handleSubmit,
@@ -47,18 +43,10 @@ const CompanyLogin = ({navigation}: any) => {
       companyName: ''
     },
   });
-
-  // const { data: tenantData, isLoading, isSuccess } = useLoginQuery(companySubmit);
-
   console.log(tenantData);
   console.log('isSucess' + isSuccess);
 
   const tenant: Tenant = useSelector(selectTenant);
-
-  // useEffect(() => {
-  //   if()
-  //   navigation.navigate('User Login')
-  // }, [error]);
 
   useDidUpdate(() => {
     if (isSuccess) {
@@ -78,30 +66,16 @@ const CompanyLogin = ({navigation}: any) => {
 
   const setTenantData = () => {
     setArrayToLocalStorage('tenant', tenantData?.result);
-
     setToLocalStorage('baseUrl', getBaseUrlFromTenant(tenantData));
-
     dispatch(setTenant(tenantData?.result));
-
     dispatch(setBaseUrl({baseUrl: getBaseUrlFromTenant(tenantData)}));
-
     navigation.navigate('User Login');
   };
 
 
 
   const handleProceed = async (e: any) => {
-    // e.preventDefault();
     try {
-      // if (companyName.trim() === '') {
-      //   console.error('Enter company name');
-
-      //   return;
-      // }
-      // setCompanyName(e.companyName)
-      // setCompanySubmit(e.companyName);
-      // console.log(companySubmit);
-      // {userHandle}
       userHandle(e.companyName);
       console.log(e.companyName)
     } catch (err: any) {
@@ -109,16 +83,10 @@ const CompanyLogin = ({navigation}: any) => {
 
       if (err?.data?.errors) {
         console.log('errors', err?.data?.errors?.id);
-
-        // toast.error(err?.data?.errors?.id.join(', '));
       }
     }
   };
-
-  // setWindowClass('hold-transition login-page');
-
   const onSubmit = (e:any) => console.log(e?.companyName)
-
   return (
     <SafeAreaView>
       <KeyboardAvoidingView
@@ -172,10 +140,6 @@ const CompanyLogin = ({navigation}: any) => {
                   name="companyName"
                 />
                   {errors.companyName && <Text>This is required.</Text>}
-                {/* <TextInput
-                  style={styles.inputSt}
-                  onChangeText={text => setCompanyName(text)}>
-                </TextInput> */}
                 <AppButton
                   title={'Proceed'}
                   onPress={handleSubmit(handleProceed)}></AppButton>

@@ -57,32 +57,12 @@ const UserLogin = ({navigation}: any) => {
   useEffect(() => {
     console.log('error : ' + {error});
   }, [error]);
-
-  //   useDidMount(() => {
-
-  //       if (!tenant) {
-
-  //         navigate("/company-login");
-
-  //       }
-
-  //     });
-
   useDidUpdate(() => {
     if (isSuccess) {
       setUserData();
       console.log('isSucess: ' + isSuccess);
     }
   }, [isSuccess]);
-
-  // const getTokenFromUser = (userData: any) => {
-  //   if (userData?.result?.token) {
-  //     return user.token;
-  //   } else {
-  //     return null;
-  //   }
-  // };
-
   const setUserData = () => {
     // console.log({userData});
     setArrayToLocalStorage('user', userData?.appUser);
@@ -92,30 +72,9 @@ const UserLogin = ({navigation}: any) => {
 
     // navigation.navigate('Home Screen')
   };
-
-  // const login = async (email: string, password: string) => {
-  //   try {
-  //     const result = await getUser({email, password});
-
-  //     if (result) {
-  //       dispatch(setUser(result));
-
-  //     }
-  //   } catch (error: any) {
-  //     console.log(error+"Failed")
-  //     // toast.error(error.message || 'Failed');
-  //   }
-  // };
-
   const handleProceed = async (e: any) => {
     // e.preventDefault();
     try {
-      // if (email.trim() === '') {
-      //   console.error('Enter  Email');
-
-      //   return;
-      // }
-
       console.log(e.email);
       console.log(e.password);
       // {userHandle}
@@ -125,8 +84,6 @@ const UserLogin = ({navigation}: any) => {
 
       if (err?.data?.errors) {
         console.log('errors', err?.data?.errors?.id);
-
-        // toast.error(err?.data?.errors?.id.join(', '));
       }
     }
   };

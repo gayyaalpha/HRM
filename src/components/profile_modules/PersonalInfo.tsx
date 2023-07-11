@@ -99,7 +99,7 @@ const PersonalInfo = ({navigation}: any) => {
           />
           <List title={'Civil Status'} content={personalInfo?.civilStatus} />
           <List title={'Nationality'} content={personalInfo?.nationality} />
-          <List title={'Race'} content={personalInfo?.rase} />
+          <List title={'Country'} content={personalInfo?.country} />
           <List title={'Gender'} content={personalInfo?.gender} />
         </View>
       </ScrollView>

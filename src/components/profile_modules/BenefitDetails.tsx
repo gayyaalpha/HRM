@@ -8,6 +8,7 @@ import { BenefitInfo } from '../../app/types/profileInfo';
 import FontAIcon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 
+
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 

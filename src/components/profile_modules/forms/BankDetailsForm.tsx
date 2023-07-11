@@ -1,39 +1,39 @@
 import {
   Dimensions,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useEffect} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {ScrollView} from 'react-native-gesture-handler';
-import List from '../children/list';
+import FontAIcon from 'react-native-vector-icons/FontAwesome';
+import {useBankDetailsEditQuery} from '../api/formApiSlice';
+import useDidUpdate from '../../../app/hooks/useDidUpdate';
+import Form from '../../json_form/Form';
+import data from '../../../../form.json';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectBankDetailForm, setBankDetailForm} from '../reducers/formSlice';
+import { BankDetailForm} from '../../../app/types/profileForm';
+import { convertJson } from '../../../app/utils/helpers';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-import FontAIcon from 'react-native-vector-icons/FontAwesome';
-import {useDispatch, useSelector} from 'react-redux';
-import {JobInfo} from '../../app/types/profileInfo';
-import useDidUpdate from '../../app/hooks/useDidUpdate';
-import {useGetJobInfoQuery} from '../../app/api/profileApiSlice';
-import {selectJobInfo, setJobInfo} from '../../app/slice/profileSlice';
-import FontAIcon5 from 'react-native-vector-icons/FontAwesome5';
 
-const JobDetails = ({navigation}: any) => {
+const BankDetailsForm = ({navigation}: any) => {
+
+  const bankDetailForm: BankDetailForm = useSelector(selectBankDetailForm);
   const dispatch = useDispatch();
 
-  const jobInfo: JobInfo = useSelector(selectJobInfo);
-
   const {
-    data: jobInfoData,
+    data: BankDetailFormData,
     error,
     isLoading,
-    isSuccess,
-  } = useGetJobInfoQuery('');
-  console.log('isLoading ' + isLoading);
-
-  console.log(jobInfoData);
+    isSuccess 
+  } = useBankDetailsEditQuery('');
+  
+  console.log(BankDetailFormData);
 
   useEffect(() => {
     if (error) console.log(error);
@@ -42,58 +42,63 @@ const JobDetails = ({navigation}: any) => {
   useDidUpdate(() => {
     if (isSuccess) {
       console.log('set tenent data');
-      setJobData();
+      console.log(BankDetailFormData);
+      setFormData();
     }
   }, [isSuccess]);
 
-  const setJobData = () => {
-    dispatch(setJobInfo(jobInfoData?.result));
+  const setFormData = () => {
+    dispatch(setBankDetailForm(BankDetailFormData?.result));
   };
 
-  return (
+  const onSubmit = () => {
+    console.log('data');
+  };
+
+ 
+
+
+    // Check if the BankDetailForm data is available in the Redux store
+    if (!bankDetailForm) {
+      return null; // or render a loading spinner or placeholder content
+    }
+    
+    return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerIcon}>
           <TouchableOpacity
-            style={{flex: 1, padding: 10}}
-            onPress={() => navigation.navigate('profile')}>
+            style={{padding: 10}}
+            onPress={() => navigation.navigate('Job Details')}>
             <FontAIcon name="chevron-left" size={20} color="white" />
           </TouchableOpacity>
         </View>
         <View style={styles.headerTextSt}>
-          <Text style={styles.headerText}>JOB DETAILS</Text>
-        </View>
-        <View style={styles.headerIconEdit}>
-          <TouchableOpacity
-            style={{padding: 10}}
-            onPress={() => navigation.navigate('Job Details Form')}>
-            <FontAIcon5 name="pen" size={20} color="white" />
-          </TouchableOpacity>
+          <Text style={styles.headerText}>EDIT JOB DETAILS</Text>
         </View>
       </View>
-      <View style={{flex: 0.5, width: screenWidth - 20}}>
-        <List title={'EPF No'} content={jobInfo?.epfNo} />
-        <List
-          title={'Occupation classification'}
-          content={jobInfo.occupationClassification}
-        />
-        <List title={'Employee Grade'} content={jobInfo.employeeGrade} />
-        <List title={'Employee Grade'} content={jobInfo.employeeNo} />
-        <List title={'Service type'} content={jobInfo.serviceType} />
-      </View>
+      <ScrollView style={styles.scrollContainer}>
+         {bankDetailForm && <Form json={convertJson(bankDetailForm?.json)} onSubmit={onSubmit} />}
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default JobDetails;
+export default BankDetailsForm;
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    width:screenWidth,
+    flex:1,
+    // backgroundColor: '#08254D',
+   
+    // flex: 1,
+  },
   container: {
     backgroundColor: '#08254D',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    height: screenHeight,
-    width: screenWidth,
+    flex:1
   },
   boxContainer: {
     flex: 1.5,
@@ -128,6 +133,11 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 100,
   },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
   header: {
     height: 50,
     width: screenWidth,
@@ -148,11 +158,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
   },
   headerIconEdit: {
     flex: 1,
